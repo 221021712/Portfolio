@@ -33,6 +33,7 @@ body {
 
 section {
     padding: 80px 0;
+    background-color: var(--light); /* Consistent background for all sections */
 }
 
 h1, h2, h3, h4 {
@@ -182,64 +183,81 @@ nav {
     border-radius: 10px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
-
-/* About Section */
-.about {
-    background: white;
-}
-
 .about-content {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 40px;
 }
 
 .about-text {
     flex: 1;
+    min-width: 300px;
 }
 
 .about-image {
     flex: 1;
-    text-align: center;
+    text-align: right;
 }
 
 .about-image img {
-    max-width: 100%;
-    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
 }
+
+@media (max-width: 768px) {
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-image {
+        text-align: center;
+    }
+
+    .about-image img {
+        width: 200px;
+    }
+}
+
+
+
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.8);
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
 }
 
 .modal-content {
-  background-color: #fff;
-  margin: 5% auto;
-  padding: 20px;
-  width: 80%;
-  max-width: 800px;
-  border-radius: 8px;
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 8px;
 }
 
 .close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }
-
-
 /* Projects Section */
 .projects {
-    background: #f8f9fa;
+    background: var(--light);
 }
 
 .project-grid {
@@ -248,18 +266,24 @@ nav {
     gap: 30px;
 }
 
+/* Project Card */
 .project-card {
     background: white;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+
+    display: flex;
+    flex-direction: column; /* stack image + info */
+    height: 100%;           /* make cards equal height */
 }
 
 .project-card:hover {
     transform: translateY(-10px);
 }
 
+/* Project Image */
 .project-image {
     height: 200px;
     overflow: hidden;
@@ -276,13 +300,22 @@ nav {
     transform: scale(1.1);
 }
 
+/* Project Info */
 .project-info {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* fills remaining space */
 }
 
 .project-info h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
+}
+
+.project-info p {
+    flex-grow: 1; /* makes description expand and push button down */
+    margin-bottom: 15px;
 }
 
 .project-tags {
@@ -301,9 +334,26 @@ nav {
     margin-bottom: 8px;
 }
 
+/* Button at Bottom */
+.project-info .btn {
+    margin-top: auto;         /* pushes button to bottom */
+    align-self: flex-start;   /* align left, can change to center if needed */
+    padding: 10px 20px;
+    background: var(--primary, #007bff);
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.project-info .btn:hover {
+    background: var(--primary-dark, #0056b3);
+}
+
+
 /* Skills Section */
 .skills {
-    background: white;
+    background: var(--light);
 }
 
 .skills-container {
@@ -400,13 +450,23 @@ nav {
     min-height: 150px;
     resize: vertical;
 }
-
 /* Footer */
 footer {
     background: var(--dark);
     color: white;
-    padding: 40px 0;
+    padding: 20px 0;   /* reduced padding so footer isn't too tall */
     text-align: center;
+
+    position: fixed;   /* keep footer always visible */
+    bottom: 0;         /* stick to bottom */
+    left: 0;
+    width: 100%;       /* span across screen */
+    z-index: 500;      /* stay above other content */
+}
+
+/* Add padding at bottom of body so content isn't hidden behind footer */
+body {
+    padding-bottom: 70px; /* must be >= footer height */
 }
 
 .social-links {
@@ -423,12 +483,14 @@ footer {
     line-height: 40px;
     margin: 0 8px;
     transition: all 0.3s ease;
+    text-align: center; /* keep icons centered */
 }
 
 .social-links a:hover {
     background: var(--primary);
     transform: translateY(-5px);
 }
+
 
 /* Responsive Design */
 @media (max-width: 992px) {
@@ -486,5 +548,9 @@ footer {
     
     .hero-text h1 {
         font-size: 2.2rem;
+    }
+    
+    .about-image img {
+        max-width: 200px;
     }
 }
